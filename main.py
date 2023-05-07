@@ -63,6 +63,10 @@ def generate_react_component(json_data: Dict[str, List[Dict[str, str]]]) -> str:
         "Webdings": "./ttf/Webdings.ttf",
         "Helvetica-Condensed-Bold": "./ttf/Helvetica-Condensed-Bold.ttf",
         "Helvetica-Narrow": "./ttf/Helvetica-Narrow.ttf",
+        "SourceSansPro-Semibold": "./ttf/SourceSansPro-SemiBold.ttf",
+        "SourceSansPro-Bold": "./ttf/SourceSansPro-Bold.ttf",
+        "Wingdings-Regular": "./ttf/Wingdings-Regular.ttf",
+        "Helvetica-Narrow-Bold": "./ttf/Helvetica-Narrow-Bold.ttf",
     }
 
     font_registers = [
