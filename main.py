@@ -32,7 +32,6 @@ def extract_text_coords_font_from_pdf(pdf_path: str) -> Dict[str, List[Dict[str,
                                         "y": y,
                                     }
                                 )
-
         if page_objects:
             page_data.append({"text_objects": page_objects})
     return {"pages": page_data}
@@ -56,9 +55,29 @@ def format_text(text: str) -> str:
 
 
 def generate_react_component(json_data: Dict[str, List[Dict[str, str]]]) -> str:
+    font_paths = {
+        "Helvetica-Compressed": "./ttf/Helvetica-Compressed-Regular.ttf",
+        "TimesNewRomanPS-BoldItalicMT": "./ttf/TimesNewRomanBoldItalic.ttf",
+        "Arial-BoldMT": "./ttf/Arial-BoldMT.ttf",
+        "Helvetica-Black": "./ttf/Helvetica-Black.ttf",
+        "Webdings": "./ttf/Webdings.ttf",
+        "Helvetica-Condensed-Bold": "./ttf/Helvetica-Condensed-Bold.ttf",
+        "Helvetica-Narrow": "./ttf/Helvetica-Narrow.ttf",
+    }
+
+    font_registers = [
+        f"Font.register({{ family: '{font}', src: '{path}' }});"
+        for font, path in font_paths.items()
+    ]
+
+    font_registers_str = "\n".join(font_registers)
+
     component = f"""
 import React from 'react';
 import {{ PDFViewer, Document, Page, Text }} from '@react-pdf/renderer';
+import {{ Font }} from '@react-pdf/renderer';
+
+{font_registers_str}
 
 const PdfComponent = () => (
     <PDFViewer style={{ {{width: '100%', height: '100vh', border: 'none', position: 'fixed' }} }}>
@@ -67,7 +86,7 @@ const PdfComponent = () => (
         component += f"        <Document>\n"
         component += f'        <Page size="A4">\n'
         for text_obj in page["text_objects"]:
-            component += f"            <Text style={{  {{ position: 'absolute', left: {text_obj['x']}, top: {text_obj['y']}, fontSize: {text_obj['font_size']} }} }}>"
+            component += f"            <Text style={{  {{ position: 'absolute', left: {text_obj['x']}, top: {text_obj['y']}, fontSize: {text_obj['font_size']}, fontFamily: '{text_obj['font_name']}' }} }}>"
             component += f"                {format_text(text_obj['text'])}"
             component += f"            </Text>\n"
         component += f"        </Page>\n"
