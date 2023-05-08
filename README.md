@@ -8,13 +8,6 @@ Avant de pouvoir utiliser Auto Convert, vous devez avoir les éléments suivants
 
 - Python
 - pip
-- pdfminer
-
-Pour installer pdfminer, vous pouvez utiliser la commande suivante :
-
-```white
-pip install pdfminer
-```
 
 ## Installation
 
@@ -43,7 +36,7 @@ cd auto-convert
 
 Pour utiliser Auto Convert, vous pouvez suivre les étapes suivantes :
 
-1. Placez le fichier PDF que vous souhaitez convertir dans le répertoire "input" du projet.
+1. Placez le fichier PDF que vous souhaitez convertir à la du projet.
 
 2. Exécutez le script Python en fonction de votre système d'exploitation.
 
