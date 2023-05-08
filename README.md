@@ -52,4 +52,4 @@ Linux
   python3 auto_convert.py
 ```
 
-3. Le composant React optimisé sera généré dans le répertoire "output" du projet.
+3. Le composant React optimisé sera généré dans à la racine du projet.
