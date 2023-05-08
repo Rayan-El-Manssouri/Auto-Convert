@@ -40,25 +40,16 @@ Pour utiliser Auto Convert, vous pouvez suivre les étapes suivantes :
 2. Exécutez le script Python en fonction de votre système d'exploitation.
 
 
-<details>
-
-<summary>Windows</summary>
+Windows
 
 ```white
   python auto_convert.py
 ```
 
-</details>
-
-
-<details>
-
-<summary>Linux</summary>
+Linux
 
 ```white
   python3 auto_convert.py
 ```
-
-</details>
 
 3. Le composant React optimisé sera généré dans le répertoire "output" du projet.
