@@ -2,36 +2,43 @@ print("Chargement en cours...")
 import json
 from typing import List, Dict, Tuple
 from pdfminer.high_level import extract_pages
-from pdfminer.layout import LTTextBoxHorizontal, LTChar, LTCurve
+from pdfminer.layout import (
+    LTTextBoxHorizontal,
+    LTChar,
+    LTCurve,
+    LTLine,
+    LTTextLine,
+    LTRect,
+    LTFigure,
+)
 from math import sqrt
-from tqdm import tqdm
+from typing import Union
 
 print("   - Chargement terminé !")
 
 print("   - Toute les dépendance on bien été charger !")
 
 
-def calculate_border_radius_v4(element, scale_factor=0.1):
-    if not isinstance(element, LTCurve):
-        return 0
+def calculate_border_radius(element, scale_factor=0.1):
+    if isinstance(element, (LTCurve, LTFigure, LTRect, LTLine)):
+        if isinstance(element, LTCurve):
+            if hasattr(element, "cap_style"):
+                cap_style = element.cap_style
+            else:
+                cap_style = None
 
-    x0, y0 = element.x0, element.y0
-    x1, y1 = element.x1, element.y1
-    length = sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2)
-
-    if len(element.pts) > 0:
-        control_points = [list(p) for p in element.pts[2:]]
-
-        if not control_points:
-            return 0.0
-        max_control_distance = max(
-            sqrt((x0 - cx) ** 2 + (y0 - cy) ** 2) for cx, cy in control_points
-        )
-        border_radius = max_control_distance / 5
+            if cap_style == 1:
+                return element.linewidth * scale_factor
+            elif cap_style == 2:
+                return element.linewidth * 0.5
+            else:
+                return 0
+        elif isinstance(element, LTLine):
+            return element.linewidth * scale_factor
+        else:
+            return element.linewidth * scale_factor
     else:
-        border_radius = length / 2
-
-    return border_radius * scale_factor
+        return 0
 
 
 def calculate_curve_height(curve):
@@ -68,7 +75,7 @@ for page_layout in extract_pages("example.pdf"):
         if isinstance(element, LTCurve):
             linewidth = element.linewidth
             height = calculate_curve_height(element)
-            border_radius = calculate_border_radius_v4(element, scale_factor=0.1)
+            border_radius = calculate_border_radius(element, scale_factor=0.1)
             segment = {
                 "type": "courbe",
                 "points": [
@@ -111,7 +118,7 @@ for segment in segments:
         )
     )
 
-    page_code += "<div> %s </div>\n" % view_code
+    page_code += f"            <div>%s </div>\n" % view_code
 
 
 def extract_text_coords_font_from_pdf(
@@ -245,10 +252,7 @@ const PdfComponent = () => (
         component += f"        <Document>\n"
         component += f'        <Page size="A4">\n'
         for text_obj in page["text_objects"]:
-            component += f"            <Text style={{  {{ position: 'absolute', left: {text_obj['x'] + 10}, top: {text_obj['y']}, zIndex: 2, fontSize: {text_obj['font_size']}, fontFamily: '{text_obj['font_name']}' }} }}>"
-            component += f"                {format_text(text_obj['text'])}"
-            component += f"            </Text>\n"
-            component += f"           "
+            component += f"            <Text style={{  {{ position: 'absolute', left: {text_obj['x'] + 10}, top: {text_obj['y']}, zIndex: 2, fontSize: {text_obj['font_size']}, fontFamily: '{text_obj['font_name']}' }} }}> {format_text(text_obj['text'])}  </Text>\n"
         component += f"        {page_code}\n"
         component += f"        </Page>\n"
         component += f"        </Document>\n"
