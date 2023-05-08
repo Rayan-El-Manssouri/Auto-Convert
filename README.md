@@ -59,7 +59,7 @@ Linux
 
 3. Le composant React optimisé sera généré dans à la racine du projet.
 
-# Arborescence du projet
+## Arborescence du projet
 
 - `/` : dossier racine contenant le fichier principal.
 - `/assets` : dossier contenant toutes les images utilisées dans le projet, sauf les images du PDF généré.
