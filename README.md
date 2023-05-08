@@ -1,14 +1,9 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 
-<details>
-  <summary>Onglet 1</summary>
-  <p>Contenu de l'onglet 1</p>
-</details>
+<div class="test">
+  <p>Text css</p>
+</div>
 
-<details>
-  <summary>Onglet 2</summary>
-  <p>Contenu de l'onglet 2</p>
-</details>
 <h1 align="center" style="padding: 20px; display: flex;">Auto Convert</h1>
 
 Auto Convert est un script Python qui permet de convertir un fichier PDF en un composant React optimisé. Cette conversion peut être utile pour l'intégration de documents PDF dans des projets React.

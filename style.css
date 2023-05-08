@@ -17,3 +17,7 @@ summary {
 details[open] {
     margin-bottom: 1.5em;
 }
+
+.test {
+    background-color: aqua;
+}
