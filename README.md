@@ -54,8 +54,7 @@ Linux
 
 3. Le composant React optimisé sera généré dans à la racine du projet.
 
-
-## Configuration
+## Configuration
 
 Le fichier `config.ini` est utilisé pour stocker des variables de configuration pour notre application. Il contient plusieurs sections avec des variables spécifiques pour chaque section.
 
