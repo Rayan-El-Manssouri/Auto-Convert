@@ -20,7 +20,6 @@ git clone https://github.com/Rayan-El-Manssouri/Auto-Convert
 ```
 
 2. Accédez au répertoire du projet
-cd auto-convert
 
 ```white
 cd auto-convert
