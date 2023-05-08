@@ -1,13 +1,62 @@
+print("Chargement en cours...")
 import json
 from typing import List, Dict, Tuple
 from pdfminer.high_level import extract_pages
-from pdfminer.layout import LTTextBoxHorizontal, LTChar, LTCurve, LTLine
+from pdfminer.layout import LTTextBoxHorizontal, LTChar, LTCurve
+from math import sqrt
+from tqdm import tqdm
+
+print("   - Chargement terminé !")
+
+print("   - Toute les dépendance on bien été charger !")
+
+
+def calculate_border_radius_v4(element, scale_factor=0.1):
+    if not isinstance(element, LTCurve):
+        return 0
+
+    x0, y0 = element.x0, element.y0
+    x1, y1 = element.x1, element.y1
+    length = sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2)
+
+    if len(element.pts) > 0:
+        control_points = [list(p) for p in element.pts[2:]]
+
+        if not control_points:
+            return 0.0
+        max_control_distance = max(
+            sqrt((x0 - cx) ** 2 + (y0 - cy) ** 2) for cx, cy in control_points
+        )
+        border_radius = max_control_distance / 5
+    else:
+        border_radius = length / 2
+
+    return border_radius * scale_factor
+
+
+def calculate_curve_height(curve):
+    if not isinstance(curve, LTCurve):
+        return 0
+
+    if len(curve.pts) < 2:
+        return 0
+
+    # trouver les coordonnées y des premiers et derniers points de contrôle
+    y0 = curve.pts[0][1]
+    y1 = curve.pts[-1][1]
+
+    # calculer la hauteur de la courbe
+    height = abs(y1 - y0)
+    return height
+
 
 segments = []
 seen = set()
 processed_pages = set()  # ensemble pour stocker les numéros de page traités
 
+
 for page_layout in extract_pages("example.pdf"):
+    print("   - Traitement de la page en cours !")
     page_number = page_layout.pageid  # obtenir le numéro de page actuel
     if page_number in processed_pages:
         continue  # passer à la page suivante si la page a déjà été traitée
@@ -17,7 +66,9 @@ for page_layout in extract_pages("example.pdf"):
 
     for element in page_layout:
         if isinstance(element, LTCurve):
-            # Ajouter les coordonnées des points de contrôle et le point final dans un dictionnaire
+            linewidth = element.linewidth
+            height = calculate_curve_height(element)
+            border_radius = calculate_border_radius_v4(element, scale_factor=0.1)
             segment = {
                 "type": "courbe",
                 "points": [
@@ -29,10 +80,13 @@ for page_layout in extract_pages("example.pdf"):
                     for i in range(0, len(element.pts) - 1, 2)
                 ],
                 "borderColor": element.stroking_color,
+                "borderWidth": element.linewidth,
+                "border_radius": border_radius,
             }
 
             # Vérifier si la courbe a déjà été ajoutée en comparant les coordonnées des points de contrôle
             coords = frozenset((p["x"], p["y"]) for p in segment["points_de_controle"])
+
             if coords not in seen:
                 # Ajouter le dictionnaire à la liste des segments de courbe et stocker les coordonnées dans l'ensemble
                 segments.append(segment)
@@ -44,15 +98,16 @@ page_code = ""
 page_height = page_layout.height  # obtenir la hauteur de la page actuelle
 for segment in segments:
     view_code = (
-        "<div style={{  position: 'absolute', top: %f, left: %f, width: %f, height: %f, color: 'rgb%s', borderRadius: %f, backgroundColor: '%s', zIndex: 1, borderWidth: 1  }} />"
+        "<div style={{  position: 'absolute', top: %f, left: %f, width: %f, height: %f, color: 'rgb%s', backgroundColor: '%s', zIndex: 1, borderWidth: %f, borderRadius: %f, padding: 0  }} />"
         % (
             page_height - segment["points"][1]["y"],  # inverser la valeur du top
             segment["points"][0]["x"],
             segment["points"][1]["x"] - segment["points"][0]["x"],
             segment["points"][1]["y"] - segment["points"][0]["y"],
             segment["borderColor"],  # couleur de la bordure
-            1,  # rayon de bordure
             "transparent",  # couleur de fond
+            segment["borderWidth"],  # texte
+            segment["border_radius"],
         )
     )
 
@@ -136,6 +191,7 @@ def extract_text_coords_font_from_pdf(
 
         if page_objects:
             page_data.append({"text_objects": page_objects})
+    print("   - Extraction des données terminé !")
     return {"pages": page_data}
 
 
@@ -203,6 +259,7 @@ const PdfComponent = () => (
 export default PdfComponent;
 """
 
+    print("Génération du code terminé !")
     return component
 
 
