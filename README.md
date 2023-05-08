@@ -1,4 +1,7 @@
-# Auto Convert
+<h1 align="center" style="padding: 20px; display: flex;">Auto Convert</h1>
+
+
+
 
 Auto Convert est un script Python qui permet de convertir un fichier PDF en un composant React optimisé. Cette conversion peut être utile pour l'intégration de documents PDF dans des projets React.
 
@@ -19,7 +22,10 @@ pip install pdfminer
 Pour installer Auto Convert, vous pouvez suivre les étapes suivantes :
 
 1. Clonez le référentiel GitHub vers votre ordinateur
+
+```ruby
 git clone https://github.com/Rayan-El-Manssouri/Auto-Convert
+```
 
 2. Accédez au répertoire du projet
 cd auto-convert
@@ -37,16 +43,27 @@ Pour utiliser Auto Convert, vous pouvez suivre les étapes suivantes :
 
 
 <details>
+
 <summary>Windows</summary>
-```python auto_convert.py```
+
+```ruby
+  python auto_convert.py
+```
 
 </details>
+
 
 <details>
+
 <summary>Linux</summary>
-```python auto_convert.py```
+
+```ruby
+  python3 auto_convert.py
+```
 
 </details>
+
+
 
 3. Le composant React optimisé sera généré dans le répertoire "output" du projet.
 
