@@ -35,7 +35,7 @@ cd auto-convert
 
 Pour utiliser Auto Convert, vous pouvez suivre les étapes suivantes :
 
-1. Placez le fichier PDF que vous souhaitez convertir à la du projet.
+1. Placez le fichier PDF que vous souhaitez convertir à la racine du projet.
 
 2. Exécutez le script Python en fonction de votre système d'exploitation.
 
@@ -61,10 +61,4 @@ Pour utiliser Auto Convert, vous pouvez suivre les étapes suivantes :
 
 </details>
 
-
-
 3. Le composant React optimisé sera généré dans le répertoire "output" du projet.
-
-## Conclusion
-
-Auto Convert est un script Python utile pour convertir des fichiers PDF en composants React optimisés. N'oubliez pas de vérifier les prérequis et d'installer les dépendances avant de l'utiliser. Si vous rencontrez des problèmes lors de l'installation ou de l'utilisation, n'hésitez pas à contacter l'auteur du projet pour obtenir de l'aide.
