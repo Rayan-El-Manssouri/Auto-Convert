@@ -59,11 +59,18 @@ Linux
 
 3. Le composant React optimisé sera généré dans à la racine du projet.
 
+# Arborescence du projet
+
+- `/` : dossier racine contenant le fichier principal.
+- `/assets` : dossier contenant toutes les images utilisées dans le projet, sauf les images du PDF généré.
+- `/generateReactComponent` : dossier contenant le composant React qui crée les variables pour le fichier JavaScript.
+- `*/maths` : dossiers contenant tous les calculs mathématiques utilisés dans le projet.
+- `*/config.init` : fichiers contenant les variables nécessaires à la configuration de la sortie (PDF, JSON, fichier de sortie).
+
+
 ## Configuration
 
 Le fichier `config.ini` est utilisé pour stocker des variables de configuration pour notre application. Il contient plusieurs sections avec des variables spécifiques pour chaque section.
-
-Pour configurer les variables dans le fichier `config.ini`
 
 Une fois que vous avez configuré les variables dans le fichier `config.ini`, vous devez enregistrer le fichier pour que les modifications soient prises en compte.
 
