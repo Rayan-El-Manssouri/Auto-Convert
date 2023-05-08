@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/Rayan-El-Manssouri/Auto-Convert#readme">
-    <img src="./assets/AutoConvertLogo.jpg" alt="Auto Convert logo" style="max-width: 30%;" >
+    <img src="./assets/AutoConvertLogo.png" alt="Auto Convert logo" style="max-width: 30%;" >
   </a>
 </p>
 <h1 align="center" style="padding: 20px; display: flex;">Auto Convert</h1>
