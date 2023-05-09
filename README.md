@@ -63,7 +63,7 @@ Linux
   python3 main.py
 ```
 
-3. Le composant React optimisé sera généré dans à la racine du projet.
+3. Le composant React optimisé sera généré dans le fichier défini du `config.ini`.
 
 ## Arborescence du projet
 
