@@ -3,8 +3,9 @@
     <img src="./assets/AutoConvertLogo.png" alt="Auto Convert logo" style="width: 280px;" >
   </a>
 </p>
-<h1 align="center" style="padding: 20px; display: flex;">Auto Convert</h1>
 
+<h3 align="center">Auto Convert</h3>
+<p align="center"><i>Transformez vos PDF en composants React grâce à ce script Python innovant !</i></p>
 
 ![Top language (GitHub)](https://img.shields.io/github/languages/top/Rayan-El-Manssouri/Auto-Convert)
 
