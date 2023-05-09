@@ -6,6 +6,7 @@ from pdfminer.layout import (
     LTTextBoxHorizontal,
     LTChar,
 )
+from text.color import extract_text_colors
 
 
 def extract_text_coords_font_from_pdf(
@@ -17,6 +18,7 @@ def extract_text_coords_font_from_pdf(
     for page_layout in extract_pages(pdf_path):
         height = page_layout.height
         page_objects = []
+
         for element in page_layout:
             if isinstance(element, LTTextBoxHorizontal):
                 for line in element:
@@ -29,8 +31,20 @@ def extract_text_coords_font_from_pdf(
                             font_size = word.size
                             font_name = clean_font_name(word.fontname)
                             text = word.get_text().strip()
+
                             if text:
                                 text = clean_text(text)
+                                (
+                                    x0,
+                                    y0,
+                                    x1,
+                                    y1,
+                                ) = word.bbox  # obtenir les coordonnées x et y
+                                color = extract_text_colors(pdf_path, text, x0, y0)
+
+                                print("TEXT: ", text),
+                                print("COLOR: ", color),
+                                print((x0, y0, x1, y1))
                                 if (
                                     special_chars_offsets is not None
                                     and text in special_chars_offsets
@@ -63,6 +77,7 @@ def extract_text_coords_font_from_pdf(
                                 line_width += word.width * font_size / 70
 
                                 x -= 13
+
                                 page_objects.append(
                                     {
                                         "text": text,
@@ -70,6 +85,7 @@ def extract_text_coords_font_from_pdf(
                                         "font_size": font_size,
                                         "x": x,
                                         "y": y,
+                                        "color": color,
                                     }
                                 )
                                 line_text += text

@@ -1,21 +1,21 @@
 from text.font import format_text
 from typing import List, Dict
 
-
 segments = []
 seen = set()
 processed_pages = set()  # ensemble pour stocker les numéros de page traités
+
 from pdfminer.high_level import extract_pages
 from maths.math_utils import calculate_border_radius
 from pdfminer.layout import (
     LTCurve,
+    LTTextBoxHorizontal,
 )
 import configparser
 
 config = configparser.ConfigParser()
 config.read("config.ini")
 output_dir = config.get("paths", "output_dir")
-
 
 for page_layout in extract_pages("example.pdf"):
     print("   - Traitement de la page en cours !")
@@ -31,6 +31,7 @@ for page_layout in extract_pages("example.pdf"):
             linewidth = element.linewidth
 
             border_radius = calculate_border_radius(element, scale_factor=0.1)
+
             segment = {
                 "type": "courbe",
                 "points": [
@@ -41,31 +42,25 @@ for page_layout in extract_pages("example.pdf"):
                     {"x": element.pts[i], "y": element.pts[i + 1]}
                     for i in range(0, len(element.pts) - 1, 2)
                 ],
-                "borderColor": element.stroking_color,
                 "borderWidth": element.linewidth,
                 "border_radius": border_radius,
             }
 
-            # Vérifier si la courbe a déjà été ajoutée en comparant les coordonnées des points de contrôle
-            coords = frozenset((p["x"], p["y"]) for p in segment["points_de_controle"])
+            # Ajouter le dictionnaire à la liste des segments de courbe
+            segments.append(segment)
 
-            if coords not in seen:
-                # Ajouter le dictionnaire à la liste des segments de courbe et stocker les coordonnées dans l'ensemble
-                segments.append(segment)
-                seen.add(coords)
 
 # Générer le code pour chaque vue
 page_code = ""
 page_height = page_layout.height  # obtenir la hauteur de la page actuelle
 for segment in segments:
     view_code = (
-        "<div style={{  position: 'absolute', top: %f, left: %f, width: %f, height: %f, color: 'rgb%s', backgroundColor: '%s', zIndex: 1, borderWidth: %f, borderRadius: %f, padding: 0  }} />"
+        "<div style={{  position: 'absolute', top: %f, left: %f, width: %f, height: %f,  backgroundColor: '%s', zIndex: 1, borderWidth: %f, borderRadius: %f, padding: 0  }} />"
         % (
             page_height - segment["points"][1]["y"],  # inverser la valeur du top
             segment["points"][0]["x"],
             segment["points"][1]["x"] - segment["points"][0]["x"],
             segment["points"][1]["y"] - segment["points"][0]["y"],
-            segment["borderColor"],  # couleur de la bordure
             "transparent",  # couleur de fond
             segment["borderWidth"],  # texte
             segment["border_radius"],
@@ -123,5 +118,5 @@ export default PdfComponent;
 """
 
     print("Génération du code terminé !")
-    print("Le fichier est dans le répertoir :", output_dir )
+    print("Le fichier est dans le répertoir :", output_dir)
     return component
