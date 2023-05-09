@@ -10,6 +10,12 @@ from maths.math_utils import calculate_border_radius
 from pdfminer.layout import (
     LTCurve,
 )
+import configparser
+
+config = configparser.ConfigParser()
+config.read("config.ini")
+output_dir = config.get("paths", "output_dir")
+
 
 for page_layout in extract_pages("example.pdf"):
     print("   - Traitement de la page en cours !")
@@ -117,4 +123,5 @@ export default PdfComponent;
 """
 
     print("Génération du code terminé !")
+    print("Le fichier est dans le répertoir :", output_dir )
     return component
