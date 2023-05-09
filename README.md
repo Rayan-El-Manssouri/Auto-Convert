@@ -7,6 +7,7 @@
 <h3 align="center">Auto Convert</h3>
 <p align="center"><i>Transformez vos PDF en composants React grâce à ce script Python innovant !</i></p>
 
+___
 ![Top language (GitHub)](https://img.shields.io/github/languages/top/Rayan-El-Manssouri/Auto-Convert)
 
 
