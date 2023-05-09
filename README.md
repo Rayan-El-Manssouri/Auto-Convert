@@ -82,4 +82,4 @@ Une fois que vous avez configuré les variables dans le fichier `config.ini`, vo
 
 # License
 
-Veuillez noter que le fichier [MIT License](https://github.com/Rayan-El-Manssouri/Auto-Convert/LICENSE.md) contient les termes et conditions de la licence pour l'utilisation de ce logiciel.
+Veuillez noter que le fichier [MIT License](https://github.com/Rayan-El-Manssouri/Auto-Convert/blob/master/LICENSE.) contient les termes et conditions de la licence pour l'utilisation de ce logiciel.
