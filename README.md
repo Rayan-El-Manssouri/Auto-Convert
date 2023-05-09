@@ -80,3 +80,6 @@ Le fichier `config.ini` est utilisé pour stocker des variables de configuration
 
 Une fois que vous avez configuré les variables dans le fichier `config.ini`, vous devez enregistrer le fichier pour que les modifications soient prises en compte.
 
+# License
+
+Veuillez noter que le fichier [GNU General Public License](https://github.com/Rayan-El-Manssouri/Auto-ConvertLICENSE.md) contient les termes et conditions de la licence pour l'utilisation de ce logiciel.
