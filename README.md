@@ -54,13 +54,13 @@ Pour utiliser Auto Convert, vous pouvez suivre les étapes suivantes :
 Windows
 
 ```white
-  python auto_convert.py
+  python main.py
 ```
 
 Linux
 
 ```white
-  python3 auto_convert.py
+  python3 main.py
 ```
 
 3. Le composant React optimisé sera généré dans à la racine du projet.
