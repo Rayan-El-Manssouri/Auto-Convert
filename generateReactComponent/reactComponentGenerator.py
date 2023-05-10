@@ -1,5 +1,6 @@
 from text.font import format_text
 from typing import List, Dict
+from message_terminal.message import color_text_terminal
 
 segments = []
 seen = set()
@@ -17,7 +18,8 @@ config.read("config.ini")
 output_dir = config.get("paths", "output_dir")
 
 for page_layout in extract_pages("example.pdf"):
-    print("   - Traitement de la page en cours !")
+    color_text_terminal("Traitement des données du PDF...", "red", 0.01)
+
     page_number = page_layout.pageid  # obtenir le numéro de page actuel
     if page_number in processed_pages:
         continue  # passer à la page suivante si la page a déjà été traitée
@@ -116,6 +118,10 @@ const PdfComponent = () => (
 export default PdfComponent;
 """
 
-    print("Génération du code terminé !")
-    print("Le fichier est dans le répertoir :", output_dir)
+    color_text_terminal("Génération du code terminé !", "green", 0.01)
+
+    color_text_terminal(
+        f"Le fichier est dans le répertoire : {output_dir}", "green", 0.01
+    )
+
     return component

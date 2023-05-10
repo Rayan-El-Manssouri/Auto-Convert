@@ -3,6 +3,7 @@ from text.clean import clean_text
 from text.font import clean_font_name
 from typing import List, Dict, Tuple
 from pdfminer.layout import LTTextBoxHorizontal, LTChar, LTTextBoxHorizontal
+from message_terminal.message import color_text_terminal
 
 
 def extract_text_coords_font_from_pdf(
@@ -86,5 +87,5 @@ def extract_text_coords_font_from_pdf(
 
         if page_objects:
             page_data.append({"text_objects": page_objects})
-    print("   - Extraction des données terminé !")
+    color_text_terminal("Extraction des données terminé !", "green", 0.01)
     return {"pages": page_data}
