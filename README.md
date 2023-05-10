@@ -49,7 +49,7 @@ cd auto-convert
 3. Installez les dépendances
 
 ```white
-  pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Utilisation
@@ -64,13 +64,13 @@ Pour utiliser Auto Convert, vous pouvez suivre les étapes suivantes :
 Windows
 
 ```white
-  python main.py
+python main.py
 ```
 
 Linux
 
 ```white
-  python3 main.py
+python3 main.py
 ```
 
 3. Le composant React optimisé sera généré dans le fichier défini du `config.ini`.
