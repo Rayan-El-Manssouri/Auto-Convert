@@ -2,7 +2,6 @@ from message_terminal.message import color_text_terminal
 
 color_text_terminal("Chargement en cours...", "red", 0.01)
 
-
 import json
 import os
 from text.extract import extract_text_coords_font_from_pdf

@@ -1,5 +1,5 @@
 # Importez la bibliothèque colorama
-from colorama import init, Fore, Back, Style
+from colorama import init, Fore, Style
 import time
 
 # Initialisez la bibliothèque colorama
