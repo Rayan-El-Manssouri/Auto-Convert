@@ -9,7 +9,6 @@ from pdfminer.high_level import extract_pages
 from maths.math_utils import calculate_border_radius
 from pdfminer.layout import (
     LTCurve,
-    LTTextBoxHorizontal,
 )
 import configparser
 
