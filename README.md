@@ -65,7 +65,7 @@ Linux
 
 3. Le composant React optimisé sera généré dans le fichier défini du `config.ini`.
 
-## Font
+## Font
 
 Pour copier-coller tout le dossier "ttf" à la racine de votre projet et le placer dans le dossier "public" de votre application React, suivez les étapes suivantes :
 
