@@ -76,6 +76,7 @@ Pour copier-coller tout le dossier "ttf" à la racine de votre projet et le plac
 5. Vous pouvez maintenant utiliser les fichiers "ttf" dans votre application React en référençant leur chemin dans vos fichiers de code.
 
 
+
 ## Arborescence du projet
 
 - `/` : dossier racine contenant le fichier principal.
