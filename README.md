@@ -67,15 +67,7 @@ Linux
 
 ## Font
 
-Pour copier-coller tout le dossier "ttf" à la racine de votre projet et le placer dans le dossier "public" de votre application React, suivez les étapes suivantes :
-
-1. Ouvrez le dossier contenant votre projet React.
-2. Copiez le dossier "ttf" que vous souhaitez utiliser.
-3. Ouvrez le dossier "public".
-4. Collez le dossier "ttf" dans le dossier "public".
-5. Vous pouvez maintenant utiliser les fichiers "ttf" dans votre application React en référençant leur chemin dans vos fichiers de code.
-
-
+Pour utiliser des fichiers "ttf" dans votre application React, copiez-collez simplement le dossier "ttf" dans le dossier "public" de votre application.
 
 ## Arborescence du projet
 
