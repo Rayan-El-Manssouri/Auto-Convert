@@ -2,8 +2,56 @@ from pdfminer.high_level import extract_pages
 from text.clean import clean_text
 from text.font import clean_font_name
 from typing import List, Dict, Tuple
-from pdfminer.layout import LTTextBoxHorizontal, LTChar, LTTextBoxHorizontal
+from pdfminer.layout import (
+    LTTextBoxHorizontal,
+    LTChar,
+    LTComponent,
+    LTTextLineHorizontal,
+)
 from message_terminal.message import color_text_terminal
+from pdfminer.layout import LTChar, LTTextLineHorizontal
+from pdfminer.utils import bbox2str
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.converter import PDFPageAggregator
+from pdfminer.pdfpage import PDFPage
+from pdfminer.layout import LAParams
+from io import StringIO
+
+
+def get_bounding_box(word):
+    """
+    Récupère les coordonnées de la boîte englobante d'un mot.
+
+    Args:
+        word (LTTextLineHorizontal): Le mot dont nous voulons récupérer les coordonnées.
+
+    Returns:
+        float: La coordonnée x0 de la boîte englobante.
+    """
+    if isinstance(word, LTChar):
+        return word.bbox[0]
+    elif isinstance(word, LTTextLineHorizontal):
+        # Créez un analyseur de mises en page avec des paramètres par défaut
+        laparams = LAParams()
+        resource_manager = PDFResourceManager()
+        device = PDFPageAggregator(resource_manager, laparams=laparams)
+        interpreter = PDFPageInterpreter(resource_manager, device)
+
+        # Exécutez l'interpréteur PDF sur la première page
+        interpreter.process_page(word._objs[0])
+        layout = device.get_result()
+
+        # Parcourez chaque caractère dans la ligne de texte
+        x0 = None
+        for char in layout:
+            if isinstance(char, LTChar):
+                bbox = char.get_textbox()
+                if x0 is None or bbox[0] < x0:
+                    x0 = bbox[0]
+
+        return x0
+    else:
+        raise TypeError("Le type de mot n'est pas pris en charge.")
 
 
 def extract_text_coords_font_from_pdf(
@@ -23,14 +71,19 @@ def extract_text_coords_font_from_pdf(
                     line_width = (
                         20  # Ajout d'une variable pour stocker la largeur de la ligne
                     )
+                    count = 0
                     for word in line:
                         if isinstance(word, LTChar):
                             font_size = word.size
                             font_name = clean_font_name(word.fontname)
                             text = word.get_text().strip()
-
+                            # calcule les coordonnées de la boîte englobante
                             if text:
                                 text = clean_text(text)
+                                count += 1
+                                if text == "f":
+                                    bounding_box = get_bounding_box(word)
+                                    print(f"Avec la lettre :{text}", bounding_box)
 
                                 if (
                                     special_chars_offsets is not None
@@ -75,6 +128,7 @@ def extract_text_coords_font_from_pdf(
                                     }
                                 )
                                 line_text += text
+
                     # Ajout de la condition pour ajuster la position des caractères spéciaux
                     if (
                         special_chars_offsets is not None
