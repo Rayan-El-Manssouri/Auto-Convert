@@ -81,9 +81,8 @@ def extract_text_coords_font_from_pdf(
                             if text:
                                 text = clean_text(text)
                                 count += 1
-                                if text == "f":
+                                if text == "a" and word:
                                     bounding_box = get_bounding_box(word)
-                                    print(f"Avec la lettre :{text}", bounding_box)
 
                                 if (
                                     special_chars_offsets is not None
