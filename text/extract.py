@@ -5,7 +5,6 @@ from typing import List, Dict, Tuple
 from pdfminer.layout import (
     LTTextBoxHorizontal,
     LTChar,
-    LTComponent,
     LTTextLineHorizontal,
 )
 from message_terminal.message import color_text_terminal
@@ -15,7 +14,6 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import PDFPageAggregator
 from pdfminer.pdfpage import PDFPage
 from pdfminer.layout import LAParams
-from io import StringIO
 
 
 def get_bounding_box(word):
@@ -81,8 +79,9 @@ def extract_text_coords_font_from_pdf(
                             if text:
                                 text = clean_text(text)
                                 count += 1
-                                if text == "a" and word:
+                                if text == "f" and word:
                                     bounding_box = get_bounding_box(word)
+                                    print(bounding_box)
 
                                 if (
                                     special_chars_offsets is not None
