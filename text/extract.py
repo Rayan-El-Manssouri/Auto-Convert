@@ -9,11 +9,10 @@ from pdfminer.layout import (
 )
 from message_terminal.message import color_text_terminal
 from pdfminer.layout import LTChar, LTTextLineHorizontal
-from pdfminer.utils import bbox2str
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import PDFPageAggregator
-from pdfminer.pdfpage import PDFPage
 from pdfminer.layout import LAParams
+from text.test import convert_coordinates
 
 
 def get_bounding_box(word):
@@ -80,9 +79,8 @@ def extract_text_coords_font_from_pdf(
                                 text = clean_text(text)
                                 count += 1
                                 if text == "f" and word:
-                                    bounding_box = get_bounding_box(word)
+                                    bounding_box = convert_coordinates((1, 2), "PyPDF2")
                                     print(bounding_box)
-
                                 if (
                                     special_chars_offsets is not None
                                     and text in special_chars_offsets
