@@ -125,4 +125,6 @@ with open(os.path.join(custom_view_dir, "CustomView.js"), "w", encoding="utf-8")
 with open(os.path.join(output_dir, "react_component.js"), "w", encoding="utf-8") as f:
     f.write(react_component)
 
+" Suppression des fichiers temporaires "
+os.remove(pdf_data_output_file)
 color_text_terminal("Chargement terminé !", "green", 0.01)
