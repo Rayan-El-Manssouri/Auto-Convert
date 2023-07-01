@@ -80,7 +80,7 @@ page_code = ""
 page_height = page_layout.height
 for segment in segments:
     view_code = (
-        "<CustomView color='%s' stateName='' left='%f' top='%f' text='' fontFamily='' fontSize='' valeur='' LeftText='' TopLeft='' widthView='%f' heightView='%f' />"
+        "<CustomView color='%s' left='%f' top='%f' widthView='%f' heightView='%f' />"
         % (
             "transparent",
             segment["points"][0]["x"]- 13,

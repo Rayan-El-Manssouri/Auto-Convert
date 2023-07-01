@@ -38,10 +38,8 @@ custom_view_dir = os.path.join(output_dir, "CustomView")
 if not os.path.exists(custom_view_dir):
     os.makedirs(custom_view_dir)
 
-view_component = """
-
-import React from 'react';
-  const CustomView = ({ color, stateName, left, top, text, fontFamily, fontSize, valeur, LeftText, TopLeft, widthView, heightView }) => {
+view_component = """import React from 'react';
+  const CustomView = ({ color,  left, top, widthView, heightView }) => {
 
   const width = widthView ? widthView : 10;
   const height = heightView ? heightView : 10;
@@ -50,7 +48,7 @@ import React from 'react';
       style={{
         width: width,
         height: height,
-        borderWidth: 0.3,
+        borderWidth: 0.25,
         borderColor: color,
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -64,6 +62,7 @@ import React from 'react';
 };
 
 export default CustomView;
+
 """
 
 text_component = """
