@@ -87,6 +87,11 @@ Pour utiliser des fichiers "ttf" dans votre application React, copiez-collez sim
 - `*/maths` : dossiers contenant tous les calculs mathématiques utilisés dans le projet.
 - `*/config.init` : fichiers contenant les variables nécessaires à la configuration de la sortie (PDF, JSON, fichier de sortie).
 
+## Averissement
+
+Ce projet est encore en cours de développement. Il est donc possible que des erreurs se produisent lors de l'exécution du script. Si vous rencontrez des problèmes, veuillez créer une nouvelle issue.
+
+Les fichiers pdf  sont actuellement en noir et blanc. Les fichiers pdf en couleur ne sont pas encore pris en charge.
 
 ## Configuration
 
