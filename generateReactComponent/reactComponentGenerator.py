@@ -57,7 +57,6 @@ for page_layout in extract_pages(pdf_file):
 
     for element in page_layout:
         if isinstance(element, LTCurve):
-            print("L'élément :", element)
             linewidth = element.linewidth
             border_radius = calculate_border_radius(element, scale_factor=0.1)
             segment = {
