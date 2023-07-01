@@ -34,88 +34,63 @@ react_component_path = config.get("paths", "react_component_path")
 
 react_component = generate_react_component(pdf_data)
 custom_view_dir = os.path.join(output_dir, "CustomView")
-view_component = """
-import React from 'react';
-import { Text, View } from '@react-pdf/renderer';
-const PdfCustomView = () => {
-  // Mettez ici le code de la vue personnalisée pour le PDF
-};
-export default PdfCustomView;
-"""
-
-
 
 if not os.path.exists(custom_view_dir):
     os.makedirs(custom_view_dir)
 
 view_component = """
+
 import React from 'react';
-import { Text, View } from '@react-pdf/renderer';
-const CustomView = ({ color, stateName, left, top, text, fontFamily, fontSize, valeur, LeftText, TopLeft, widthView, heightView }) => {
-  const [isChecked, setIsChecked] = React.useState(stateName === valeur);
-  const leftValue = LeftText ? LeftText : 12;
-  const topValue = TopLeft ? TopLeft : 0;
+  const CustomView = ({ color, stateName, left, top, text, fontFamily, fontSize, valeur, LeftText, TopLeft, widthView, heightView }) => {
+
   const width = widthView ? widthView : 10;
   const height = heightView ? heightView : 10;
-
-  React.useEffect(() => {
-    setIsChecked(valeur ? stateName === valeur : text === stateName);
-  }, [stateName, valeur, text]);
-
   return (
-    <View
+    <div
       style={{
         width: width,
         height: height,
-        borderWidth: 1,
+        borderWidth: 0.3,
         borderColor: color,
-        marginLeft: 5,
-        backgroundColor: '#fff',
+        backgroundColor: 'transparent',
         position: 'absolute',
         left: left,
         top: top,
+        zIndex: 0,
       }}
     >
-      {isChecked ? (
-        <Text
-          style={{
-            flex: 1,
-            fontSize: 10,
-            fontWeight: 'bold',
-            position: 'absolute',
-            textAlign: 'center',
-            left: '0.5',
-            top: '-1.5',
-          }}
-        >
-          X
-        </Text>
-      ) : (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <View style={{ width: '60%', height: 2, backgroundColor: 'transparent' }} />
-        </View>
-      )}
-      {text && (
-        <Text
-          style={{
-            position: 'absolute',
-            left: leftValue,
-            top: topValue,
-            fontSize: fontSize,
-            width: 500,
-            color: color,
-            fontFamily: fontFamily,
-          }}
-        >
-          {text}
-        </Text>
-      )}
-    </View>
+    </div>
   );
 };
 
 export default CustomView;
 """
+
+text_component = """
+import React from 'react';
+import { Text as PDFText } from '@react-pdf/renderer';
+
+const Text = ({ fontFamily, fontSize, left, top, text }) => (
+  <PDFText
+    style={{
+      fontFamily: fontFamily,
+      fontSize: fontSize,
+      left: left,
+      top: top,
+      position: 'absolute',
+      zIndex: 1,
+    }}
+  >
+    {text}
+  </PDFText>
+);
+
+export default Text;
+
+"""
+
+with open(os.path.join(output_dir, "Text.js"), "w", encoding="utf-8") as f:
+    f.write(text_component)
 
 with open(os.path.join(custom_view_dir, "CustomView.js"), "w", encoding="utf-8") as f:
     f.write(view_component)
