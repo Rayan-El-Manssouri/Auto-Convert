@@ -8,7 +8,6 @@ import configparser
 config = configparser.ConfigParser()
 config.read("config.ini")
 pdf_path = config.get("paths", "pdf_path")
-json_path = config.get("paths", "json_path")
 output_dir = config.get("paths", "output_dir")
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
@@ -31,7 +30,6 @@ react_component = generate_react_component(pdf_data)
 output_dir = config.get("paths", "output_dir")
 
 config.read("config.ini")
-json_path = config.get("paths", "json_path")
 react_component_path = config.get("paths", "react_component_path")
 
 react_component = generate_react_component(pdf_data)
