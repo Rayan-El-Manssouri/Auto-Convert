@@ -48,7 +48,8 @@ view_component = """import React from 'react';
       style={{
         width: width,
         height: height,
-        borderWidth: 0.25,
+        borderRight: 0.5,
+        borderTop: 0.5,
         borderColor: color,
         backgroundColor: 'transparent',
         position: 'absolute',
